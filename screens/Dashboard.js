@@ -12,8 +12,8 @@ export default function Dashboard() {
     const testTube3 = useRef()
     const testTubePos = useRef([])
     const pansArr = useRef([])
-    const [IsBoxBlock, setBlocked] = useState({})
-    // console.log(IsBoxBlock)
+
+
 
     useEffect(() => {
 
@@ -53,22 +53,8 @@ export default function Dashboard() {
         const updatedArr = [...pansArr.current]
         updatedArr[id] = pan;
         pansArr.current = updatedArr;
-        console.log(pan)
-        // console.log(pansArr.current)
-
-        if (CheckOverLape(pan, id, pansArr.current)) {
-            // console.log("collision ")
-            const temp = { Blocked: true, Id: id }
-            setBlocked(temp)
-
-        }
 
 
-        // pansArr.current.forEach((elm, index) => {
-        //     if (index != id) {
-
-        //     }
-        // })
 
 
     }
@@ -77,7 +63,7 @@ export default function Dashboard() {
 
     const renderBoxes = () => {
         return Array.from({ length: numberOfBox }, (_, index) => (
-            <Box Id={index} key={index} setPan={GettingPan} IsBoxBlock={IsBoxBlock} />
+            <Box Id={index} key={index} setPan={GettingPan} />
         ))
     }
 

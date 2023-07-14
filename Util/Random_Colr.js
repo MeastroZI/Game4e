@@ -4,23 +4,47 @@ export default function Random_Colr() {
 
     switch (num) {
         case 1:
-            ColorCode = '#FF461C';
+            ColorCode = {
+                r: 255,
+                g: 0,
+                b: 140
+            };
             break;
 
         case 2:
-            ColorCode = '#FF36DD';
+
+            ColorCode = {
+                r: 0,
+                g: 120,
+                b: 9
+            };
             break;
 
         case 3:
-            ColorCode = '#54FFCF';
+
+            ColorCode = {
+                r: 120,
+                g: 3,
+                b: 0
+            };
             break;
 
         case 4:
-            ColorCode = '#F4FF54';
+
+            ColorCode = {
+                r: 0,
+                g: 120,
+                b: 100,
+            };
             break;
 
         case 5:
-            ColorCode = '#00FF08';
+
+            ColorCode = {
+                r: 0,
+                g: 80,
+                b: 120
+            };
             break;
     }
 
