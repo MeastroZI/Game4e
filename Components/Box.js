@@ -2,37 +2,28 @@ import React, { useRef, useEffect } from 'react';
 import { View, Text, PanResponder, Animated } from 'react-native';
 import Random_Colr from '../Util/Random_Colr';
 
-export default function Box({ setPan, Id }) {
+export default function Box({ setPan, Id, TestTubePosition }) {
+
+    // console.log(TestRef)
+
     const box = useRef();
     const boxColr = useRef(Random_Colr()).current
-
-
-
     const setThePosOfTheBox = () => {
         // console.log("Layout is running")
         box.current.measure((x, y, height, width, pageX, pageY) => {
             setPan({ X: pageX, Y: pageY, dx: 0, dy: 0, Height: height, Width: width }, Id);
         });
     };
-
     const pan = useRef(new Animated.ValueXY()).current;
-
     const settingAnimatedEvent = (_, gestureState) => {
-
         const { dx, dy, moveX, moveY } = gestureState;
-
-        // console.log(moveX)
-
         Animated.event([null, { dx: pan.x, dy: pan.y }], {
             useNativeDriver: false,
         })(_, gestureState);
-        // setPan({ X: gestureState.moveX, Y: gestureState.moveY, dx: gestureState.dx, dy: gestureState.dy }, Id);
+
         box.current.measure((x, y, height, width, pageX, pageY) => {
             setPan({ X: pageX, Y: pageY, dx: gestureState.dx, dy: gestureState.dy, Height: height, Width: width }, Id);
         });
-
-
-
     }
 
     const PNPpanResponder = useRef(
@@ -44,6 +35,22 @@ export default function Box({ setPan, Id }) {
             },
         })
     ).current
+
+    // const UnderTheTubeAnimation =  useRef(new Animated.ValueXY()).current
+    // const StartAnimation = () => {
+    //     const X = TestTubePosition[0].X + (TestTubePosition[0].Width / 2)
+    //     const Y = TestTubePosition[0].Y + TestTubePosition[0].Height
+    //     Animated.timing(pan, {
+    //         toValue: { x: X, y: Y },
+    //         duration: 1000,
+    //         useNativeDriver: true
+    //     }).start()
+
+    // }
+    // if (Id == 0) {
+    //     StartAnimation()
+
+    // }
 
 
     return (

@@ -11,34 +11,41 @@ export default function Dashboard() {
     const testTube2 = useRef()
     const testTube3 = useRef()
     const testTubePos = useRef([])
+    const [TestTubePos, SetTestTubePosState] = useState([])
     const pansArr = useRef([])
 
 
 
-    useEffect(() => {
-
-    })
 
 
 
 
 
     function setTestTubePos() {
+
+
+
         testTube1.current.measure((x, y, width, height, pageX, pageY) => {
-
-            testTubePos.current[0] = { X: pageX, Y: pageY }
-
+            (TestTubePos.current)[0] = { X: pageX, Y: pageY, Height: height, Width: width }
         });
+
 
         testTube2.current.measure((x, y, width, height, pageX, pageY) => {
-            testTubePos.current[1] = { X: pageX, Y: pageY }
+            (TestTubePos.current)[0] = { X: pageX, Y: pageY, Height: height, Width: width }
         });
 
+
         testTube3.current.measure((x, y, width, height, pageX, pageY) => {
-            // console.log({ x, y, width, height, pageX, pageY })
-            testTubePos.current[2] = { X: pageX, Y: pageY }
-            // console.log(testTubePos.current)
+            (TestTubePos.current)[0] = { X: pageX, Y: pageY, Height: height, Width: width }
         });
+
+        SetTestTubePosState([...testTubePos.current])
+
+
+
+
+
+
 
     }
 
@@ -49,7 +56,7 @@ export default function Dashboard() {
 
     const GettingPan = (pan, id) => {
 
-
+        // console.log(pan)
         const updatedArr = [...pansArr.current]
         updatedArr[id] = pan;
         pansArr.current = updatedArr;
@@ -62,9 +69,12 @@ export default function Dashboard() {
 
 
     const renderBoxes = () => {
+
         return Array.from({ length: numberOfBox }, (_, index) => (
-            <Box Id={index} key={index} setPan={GettingPan} />
+            <Box Id={index} key={index} setPan={GettingPan} TestTubePosition={TestTubePos} />
         ))
+
+
     }
 
 
