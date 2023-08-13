@@ -11,8 +11,11 @@ export default function Dashboard() {
     const testTube2 = useRef()
     const testTube3 = useRef()
     const testTubePos = useRef([])
+    // const OverlappedTestTube = useRef[];
     const [TestTubePos, SetTestTubePosState] = useState([])
+    const [OverLap, SetOverLapTestTube] = useState({ OverLap: false });
     const pansArr = useRef([])
+
 
 
 
@@ -24,19 +27,18 @@ export default function Dashboard() {
     function setTestTubePos() {
 
 
-
         testTube1.current.measure((x, y, width, height, pageX, pageY) => {
-            (TestTubePos.current)[0] = { X: pageX, Y: pageY, Height: height, Width: width }
+            testTubePos.current[0] = { X: pageX, Y: pageY, Height: height, Width: width }
         });
 
 
         testTube2.current.measure((x, y, width, height, pageX, pageY) => {
-            (TestTubePos.current)[0] = { X: pageX, Y: pageY, Height: height, Width: width }
+            testTubePos.current[1] = { X: pageX, Y: pageY, Height: height, Width: width }
         });
 
 
         testTube3.current.measure((x, y, width, height, pageX, pageY) => {
-            (TestTubePos.current)[0] = { X: pageX, Y: pageY, Height: height, Width: width }
+            testTubePos.current[2] = { X: pageX, Y: pageY, Height: height, Width: width }
         });
 
         SetTestTubePosState([...testTubePos.current])
@@ -60,7 +62,15 @@ export default function Dashboard() {
         const updatedArr = [...pansArr.current]
         updatedArr[id] = pan;
         pansArr.current = updatedArr;
+        // console.log(testTubePos)
 
+        // console.log(testTubePos)
+        // console.log(CheckOverLape(pan, id, testTubePos.current))
+        const IsOverlap = CheckOverLape(pan, id, testTubePos.current)
+        if (IsOverlap.OverLap != OverLap.OverLap) {
+
+            SetOverLapTestTube({ ...IsOverlap })
+        }
 
 
 
@@ -71,7 +81,7 @@ export default function Dashboard() {
     const renderBoxes = () => {
 
         return Array.from({ length: numberOfBox }, (_, index) => (
-            <Box Id={index} key={index} setPan={GettingPan} TestTubePosition={TestTubePos} />
+            <Box Id={index} key={index} setPan={GettingPan} TestTubePosition={testTubePos.current} OverLapWithTube={OverLap} />
         ))
 
 
@@ -103,12 +113,12 @@ const styles = StyleSheet.create({
     },
     BoxContainer: {
         width: "100%",
-        height: "40%",
+        height: "100%",
         top: 20,
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'space-around',
-        flexWrap: 'wrap',
+        // flexWrap: 'wrap',
         alignContent: 'center',
         backgroundColor: ' grey'
     },
